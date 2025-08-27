@@ -15,12 +15,6 @@ except (TypeError, ValueError):
     DB_PORT = 3306
 DB_NAME = os.getenv("DB_NAME")
 
-#test debug
-print("Raw DB_PORT:", repr(DB_PORT))
-print("Raw DB_USER:", repr(DB_USER))
-print("Raw DB_HOST:", repr(DB_HOST))
-print("Raw DB_NAME:", repr(DB_NAME))
-
 SQLALCHEMY_DATABASE_URL = f"mysql+pymysql://{DB_USER}:{DB_PASS}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
 engine                  = create_engine(SQLALCHEMY_DATABASE_URL)
 SessionLocal            = sessionmaker(autocommit=False, autoflush=False, bind=engine)
