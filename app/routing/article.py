@@ -1,5 +1,5 @@
 from fastapi import APIRouter, HTTPException, Depends, status, Query
-from pydantic import BaseModel
+from pydantic import BaseModel, constr, field_validator
 from typing import Annotated
 import app.models.article
 from app.core.database import engine, get_db
@@ -10,10 +10,16 @@ router = APIRouter()
 app.models.article.Base.metadata.create_all(bind=engine)
 
 class ArticleBase(BaseModel):
-    title: str
-    content: str
-    category: str
+    title: constr(min_length=20)
+    content: constr(min_length=200)
+    category: constr(min_length=3)
     status: str
+
+    @field_validator("status")
+    def cek_status(cls, stat):
+        if stat not in ["publish", "draft", "thrash"]:
+            raise ValueError("Status must be publish/draft/thrash")
+        return stat
 
 @router.get("/article", status_code=status.HTTP_200_OK)
 def get_articles(db: Session = Depends(get_db)):
