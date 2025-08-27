@@ -9,6 +9,12 @@ from sqlalchemy.orm import Session
 router = APIRouter()
 app.models.article.Base.metadata.create_all(bind=engine)
 
+class ArticleBase(BaseModel):
+    title: str
+    content: str
+    category: str
+    status: str
+
 @router.get("/article", status_code=status.HTTP_200_OK)
 def get_articles(db: Session = Depends(get_db)):
     return db.query(app.models.article.Article).all()
@@ -19,3 +25,10 @@ def get_article(id: int, db: Session = Depends(get_db)):
     if not article:
         raise HTTPException(status_code=404, detail="Not found article with that id!")
     return article
+
+@router.post("/article", status_code=status.HTTP_200_OK)
+def create_article(article: ArticleBase, db: Session = Depends(get_db)):
+    db_article = app.models.article.Article(**article.model_dump())
+    db.add(db_article)
+    db.commit()
+    return {"message": "New article created"}
