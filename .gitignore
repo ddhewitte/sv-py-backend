@@ -1,0 +1,35 @@
+# Python cache / build
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyo
+*.pyd
+*.pdb
+*.egg-info/
+dist/
+build/
+
+# Virtual environment
+venv/
+.venv/
+env/
+ENV/
+
+# Database file
+*.db
+
+# Config & secrets
+.env
+.env.*
+
+# Alembic cache
+alembic/__pycache__/
+
+# Editor / IDE
+.vscode/
+.idea/
+*.swp
+
+# OS generated
+.DS_Store
+Thumbs.db
