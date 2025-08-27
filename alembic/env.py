@@ -13,34 +13,20 @@ from dotenv import load_dotenv
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
 config = context.config
-
-# Interpret the config file for Python logging.
-# This line sets up loggers basically.
-if config.config_file_name is not None:
-    fileConfig(config.config_file_name)
-
-# add your model's MetaData object here
-# for 'autogenerate' support
-# from myapp import mymodel
-# target_metadata = mymodel.Base.metadata
-target_metadata = Base.metadata
-
-def get_url():
-    user = os.getenv("DB_USER")
-    password = os.getenv("DB_PASS")
-    host = os.getenv("DB_HOST")
-    try:
-        port = int(os.getenv("DB_PORT"))
-    except (TypeError, ValueError):
-        port = 3306
-    db = os.getenv("DB_NAME")
-    return f"mysql+pymysql://{user}:{password}@{host}:{port}/{db}"
-
-config = context.config
-config.set_main_option("sqlalchemy.url", get_url())
-
-# config logging (default Alembic)
 fileConfig(config.config_file_name)
+
+DB_USER = os.getenv("DB_USER") or "root"
+DB_PASSWORD = os.getenv("DB_PASSWORD") or ""
+DB_HOST = os.getenv("DB_HOST") or "localhost"
+DB_PORT = int(os.getenv("DB_PORT") or 3306)
+DB_NAME = os.getenv("DB_NAME") or "article"
+
+config.set_main_option(
+    "sqlalchemy.url",
+    f"mysql+pymysql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
+)
+
+target_metadata = Base.metadata
 
 # other values from the config, defined by the needs of env.py,
 # can be acquired:
