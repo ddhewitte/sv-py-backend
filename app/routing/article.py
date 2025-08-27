@@ -56,3 +56,7 @@ async def delete_article(id: int, db: Session = Depends(get_db)):
     db.delete(findArticle)
     db.commit()
     return {"message": "Article deleted!"}
+
+@router.get("/article/{limit}/{offset}")
+def get_articles_with_limit_offset(limit: int, offset: int, db: Session = Depends(get_db)):
+    return db.query(app.models.article.Article).offset(offset).limit(limit).all()
