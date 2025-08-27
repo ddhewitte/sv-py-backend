@@ -29,7 +29,7 @@ def get_url():
     user = os.getenv("DB_USER")
     password = os.getenv("DB_PASS")
     host = os.getenv("DB_HOST")
-    port = os.getenv("DB_PORT")
+    port = int(os.getenv("DB_PORT") or 3306)
     db = os.getenv("DB_NAME")
     return f"mysql+pymysql://{user}:{password}@{host}:{port}/{db}"
 
