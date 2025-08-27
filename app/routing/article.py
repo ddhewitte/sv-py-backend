@@ -12,3 +12,10 @@ app.models.article.Base.metadata.create_all(bind=engine)
 @router.get("/article", status_code=status.HTTP_200_OK)
 def get_articles(db: Session = Depends(get_db)):
     return db.query(app.models.article.Article).all()
+
+@router.get("/article/{id}", status_code=status.HTTP_200_OK)
+def get_article(id: int, db: Session = Depends(get_db)):
+    article = db.query(app.models.article.Article).filter(app.models.article.Article.id == id).first()
+    if not article:
+        raise HTTPException(status_code=404, detail="Not found article with that id!")
+    return article
