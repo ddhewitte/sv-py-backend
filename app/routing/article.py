@@ -47,3 +47,12 @@ def update_article(id: int, article: ArticleBase, db: Session = Depends(get_db))
     }, synchronize_session=False)
     db.commit()
     return {"message": "Article updated!"}
+
+@router.delete("/article/{id}", status_code=status.HTTP_200_OK)
+async def delete_article(id: int, db: Session = Depends(get_db)):
+    findArticle = db.query(app.models.article.Article).filter(app.models.article.Article.id == id).first()
+    if findArticle is None:
+        raise HTTPException(status_code=404, detail="Article not found")
+    db.delete(findArticle)
+    db.commit()
+    return {"message": "Article deleted!"}
