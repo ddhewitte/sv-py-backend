@@ -13,3 +13,6 @@ To run it locally
 
 
 Swagger/ API playground : http://127.0.0.1:8000/docs#/
+
+
+FYI : URL BE Live https://sv-py-backend-production.up.railway.app/ and MySQL can't be accessed anymore, because my trial period has expired, so it can only be tried in the local environment
