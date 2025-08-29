@@ -1,7 +1,7 @@
 # RestFul API article with FastAPI Python
 To run it locally
 - Clone
-- Buat virtual environment 
+- Create virtual environment 
   - python -m venv venv
   - venv\Scripts\activate
 - Setup dependencies
