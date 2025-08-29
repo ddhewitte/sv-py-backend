@@ -11,3 +11,5 @@ To run it locally
 - Run migration -> alembic upgrade head
 - Run app locally -> uvicorn app.main:app --reload
 
+
+Swagger/ API playground : http://127.0.0.1:8000/docs#/
