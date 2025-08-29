@@ -6,7 +6,8 @@ To run it locally
   - venv\Scripts\activate
 - Setup dependencies
   - pip install -r requirements.txt
-- Setup env variable (for database) (*we must create database (database only) first manually)
+- Setup database > create new database article
+- Setup env variable (for database) in .env file
 - Run migration -> alembic upgrade head
 - Run app locally -> uvicorn app.main:app --reload
 
